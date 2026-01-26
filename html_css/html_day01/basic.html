@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width initial-sacle= 1.0">
+        <title> 웹 페이지 제목</title>
+    </head>
+    
+    <body>
+        <!-- 박스태그 -->
+        <div>
+            <h1>제목</h1>
+            <p> div 태그는 태그 안의 내용들을 그룹으로 묶습니다</p>
+        </div>
+        <br>
+        <!--  텍스트 관련 태그 -->
+        <div>
+            <h1>hn h 뒤 숫자로 크기를 조절 1~6 점점 작아짐 </h1>
+            <p> 이것은 단락 입니다 문단을 나타낼때 사용</p>
+            <span> 이것은 단어난 구문을 묶을 때 사용하는 span 태그</span>
+            <strong> 이것은 중요한 텍스트를 강조</strong>
+            <br><!-- <br>  줄바꿈 -->
+            <hr><!-- 수평선 -->
+        </div>
+        <br>
+        <!-- 랑크 이미지 태그 -->
+        <div>
+            <!-- 페이지 이동 href의 url로 이동  -->
+            <a href="https://www.google.com"> 구글로 이동</a>
+            <!-- target = blank 옵션 새탭에서 페이지 열기 -->
+            <br>
+            <a href="https://www.naver.com" target="_blank"> 네이버 (새탭)</a>
+            <br>
+            <!-- 같은 페이지 내 특정 위치로 이동 -->
+            <a href="#section">섹션1으로 이동</a>
+            <!-- 기본 이미지 -->
+            <img src="phto.jpg" alt="사진 설명">
+            <!-- 크기 조절 -->
+            <img src="logo_png" alt="로고" width="200" height="100">
+        </div>
+        <br>
+        <!-- 
+        리스트
+        세가지 종류의 리스트 태그 
+        li 태그느 무조건 ul 혹은 ol 태그와 함꼐 사용
+        -->
+        <div>
+            <!-- 순서 없는 리스트 ul li -->
+            <ul>
+                <li>사과</li>
+                <li>바나나</li>
+                <li>오렌지</li>
+            </ul>
+            <br>
+            <!-- 순서 있는 리스트 ol li-->
+            <ol>
+                <li> 첫번째 항목</li>
+                <li> 두번째 항목</li>
+                <li> 세번째 항목</li>
+            </ol>
+            <br>
+            <!-- 정의 리스트 dl dt dd -->
+            <dl>
+                <dt> html</dt>
+                <dd> 웹페이지의 구조를 정의하는 언어</dd>
+                <dt> CSS</dt>
+                <dd>웹 페이지의 스타일을 정의하는 언어</dd>
+            </dl>
+        </div>
+        <br>
+        <!-- 테이블 -->
+        <div>
+            <table >
+                <!-- 테이블의 행(row) -->
+                <!-- 테이블 첫번쨰 행 -> 컬럼  -->
+                <tr>
+                    <th> 이름 </th>
+                    <th> 나이 </th>
+                    <th> 직업</th>
+                </tr>
+                <tr>
+                    <th>김씨</th>
+                    <th>20</th>
+                    <th>백수</th>
+                </tr>
+                <tr>
+                    <th>이씨</th>
+                    <th>30</th>
+                    <th>강사</th>
+                </tr>
+            </table>
+            <br>
+            <!-- 셀 병합 -->
+            <table>
+                <tr>
+                    <th>시간</th>
+                    <th>목요일</th>
+                    <th>금요일</th>
+                </tr>
+                <tr>
+                    <th>13:00</th>
+                    <th>OT</th>
+                    <th>css 기초</th>
+                </tr>
+                <tr>
+                    <td>14:00</td>
+                    <td rowspan="2">html 기초</td> <!--세로 2개 셀 병합 colspan 가로 2개 셀 병합-->
+                    
+                    <td>스타일 우선순위</td>
+                </tr>
+                <tr>
+                    <td>15:00</td>
+                    <!-- rowspan으로 위 셀과 병합되어 여기는 비어 있움  -->
+                    <td>css 속성</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <!-- 
+        form 요소
+        폼은 사용자로부터 입력을 받는 인터랙티브 부분
+        사용자 입력 데이터를 서버로 전송 처리
+        -->
+        <div>
+            <!-- 기본 입력 요소  -->
+            <form action="">
+                <!-- 텍스트 입력 -->
+                <input type="text" name="username" placeholder="사용자 이름을 입력하세요">
+                <br>
+                <!-- 비밀번호 입력-->
+                <input type="password" name="password" placeholder="비밀번호">
+                <br>
+                <!-- 라디오 버튼 (하나만 선택) -->
+                <input type="radio" name="gender" value="male" id="male">
+                <label for="male">남성</label>
+                <input type="radio" name="'gender" value="female" id="female">
+                <label for="female">여성</label>
+                <br>
+                <!-- 체크박스 (여러개 선택 가능)-->
+                <input type="checkbox" name="hobby" value="reading" id="reading">
+                <label for="reading">독서</label>
+                <input type="checkbox" name="hobby" value="sports" id="sports">
+                <label for="sports">운동</label>
+                <input type="checkbox" name="hobby" value="game" id="game">
+                <label for="game">독서</label>
+                <br>
+                <!-- 드롭다운 -->
+                <label for="food">음식선택</label>
+                <select name="food" id="food">
+                    <option value="">선택해주세요</option>
+                    <option value="pizza">피자</option>
+                    <option value="chiken">치킨</option>
+                    <option value="hambuger">햄버거</option>
+                </select>
+                <br>
+                <!-- 여러줄 텍스트 -->
+                <textarea name="message" rows="4" cols="50" placeholder="메세지를 입력하세요"></textarea>
+                <br>
+                <!-- 제출버튼 -->
+                <button type="submit">제출</button>
+            </form>
+            <!--
+            주요 속성
+            name : 서버로 보낼 데이터의 실별자
+            value : 서버로 전송될 실제 값
+            placeholder 입력필드에 표시되는 안내 텍스트
+            required : 필수 입력 피드로 지정
+            checked : 라디오 버튼이나 체크박스 기본 선택 상태로 설정
+            selected : 옵션을 기본 선택 상태로 설정
+            label : 폼 요소에 설명을 붙이는 역할
+            -->
+        </div>
+    </body>
+
+</html>

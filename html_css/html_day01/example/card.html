@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="./public/styles/card-styles.css" />
+  </head>
+  <body>
+    <div class="profile">
+      <h2 class="name">홍길동</h2>
+      <p>안녕하세요! 저는 웹 개발에 관심 있는 초보자입니다.</p>
+      <button type="button" class="button">이름 바꾸기</button>
+    </div>
+
+    <script>
+      const button = document.querySelector(".button");
+      const nameHeading = document.querySelector(".name");
+
+      button.addEventListener("click", () => {
+        const newName = prompt("새 이름을 입력하세요:");
+        if (newName) {
+          nameHeading.innerText = newName;
+        }
+      });
+    </script>
+  </body>
+</html>

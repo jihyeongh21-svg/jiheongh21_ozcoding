@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!-- HTML5 문서임을 선언 -->
+<html lang="ko">
+  <!-- HTML 문서의 시작, 언어 설정 -->
+  <head>
+    <!-- 문서 정보 (화면에 직접 보이지 않음) -->
+    <meta charset="UTF-8" />
+    <!-- 문자 인코딩 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML 기초 학습자료 - 완전한 예제</title>
+    <!-- 브라우저 탭에 표시될 제목 -->
+
+    <!-- 스타일 -->
+    <link rel="stylesheet" href="./public/styles/styles.css" />
+    <!-- 외부 스타일 시트 -->
+    <style>
+      /* 내부 스타일 시트 */
+      /* h1 {
+        color: blue;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <!-- 실제로 화면에 보여질 내용들 -->
+
+    <!-- 페이지 제목 -->
+    <h1>HTML 기초 학습자료 - 완전한 예제</h1>
+    <p>
+      이 페이지는 HTML 기초 강의에서 배운 모든 태그들을 실제로 구현한
+      예제입니다.
+    </p>
+
+    <!-- 박스 태그 -->
+    <section>
+      <h2>박스 태그</h2>
+
+      <h3>div 태그</h3>
+      <p>
+        div는 Division의 약자로, 웹페이지의 섹션이나 구역을 정의하는 데
+        사용됩니다.
+      </p>
+
+      <div
+        style="
+          background-color: #f0f0f0;
+          padding: 15px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+        "
+      >
+        <h1>제목</h1>
+        <p>이 내용들이 하나의 그룹으로 묶였습니다</p>
+      </div>
+
+      <p><strong>div 태그의 특징:</strong></p>
+      <ul>
+        <li>다른 HTML 요소들을 그룹화하는 컨테이너 역할</li>
+        <li>레이아웃 구성에 매우 유용</li>
+        <li>CSS 스타일링을 적용할 때 자주 사용</li>
+      </ul>
+    </section>
+
+    <!-- 텍스트 관련 태그 -->
+    <section>
+      <h2>텍스트 관련 태그</h2>
+
+      <h3>제목 태그 (h1 ~ h6)</h3>
+      <p>HTML에는 6단계의 제목 태그가 있습니다:</p>
+
+      <h1>가장 중요한 제목 (페이지 주제)</h1>
+      <h2>두 번째 중요한 제목</h2>
+      <h3>세 번째 중요한 제목</h3>
+      <h4>네 번째 중요한 제목</h4>
+      <h5>다섯 번째 중요한 제목</h5>
+      <h6>가장 작은 제목</h6>
+
+      <h3>단락과 텍스트 태그</h3>
+
+      <p>이것은 단락(paragraph)입니다. 문단을 나타낼 때 사용합니다.</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illo
+        dignissimos eveniet deserunt vel quos dicta beatae error et aliquam.
+        Enim debitis nisi mollitia facilis animi deleniti quisquam iusto
+        suscipit.
+      </p>
+
+      <p>
+        이 문장에서 <span style="color: red">특정 부분</span>을 span 태그로
+        묶었습니다. 이것은 단어나 구문을 묶을 때 사용하는 span 태그입니다.
+      </p>
+
+      <p>이것은 <strong>중요한 텍스트</strong>를 강조할 때 사용합니다.</p>
+
+      <p>줄바꿈 태그를 사용하면<br />이렇게 줄이 바뀝니다.</p>
+      <!-- 줄바꿈 (닫는 태그 없음) -->
+
+      <hr />
+      <!-- 수평선 (닫는 태그 없음) -->
+      <p>위에 수평선이 나타납니다.</p>
+    </section>
+
+    <!-- 링크와 이미지 -->
+    <section>
+      <h2>링크와 이미지</h2>
+
+      <h3>하이퍼링크 (a 태그)</h3>
+
+      <!-- 다른 페이지로 이동 -->
+      <p><a href="https://www.google.com">구글로 이동</a></p>
+
+      <!-- 새 탭에서 열기 -->
+      <p><a href="https://www.naver.com" target="_blank">네이버 (새 탭)</a></p>
+
+      <!-- 같은 페이지 내 특정 위치로 이동 -->
+      <p><a href="#form-section">섹션1으로 이동</a></p>
+
+      <p><strong>주요 속성:</strong></p>
+      <ul>
+        <li><code>href</code>: 이동할 링크 주소</li>
+        <li><code>target="_blank"</code>: 새 탭에서 열기</li>
+      </ul>
+
+      <h3>이미지 (img 태그)</h3>
+
+      <!-- 기본 이미지 -->
+      <!-- <img
+        src="https://storage.googleapis.com/media-newsinitiative/images/GO801_GNI_VerifyingPhotos_Card2_image3.original.jpg"
+        alt="사진 설명"
+      /> -->
+      <img
+        src="https://menu.moneys.co.kr/moneyweek/thumb/2025/01/10/06/2025011016581868696_1.jpg"
+        alt="윈터이미지"
+        width="400"
+      />
+
+      <!-- 크기 조절 -->
+      <img src="./public/images/최고심.png" alt="로고" width="400" />
+
+      <p><strong>주요 속성:</strong></p>
+      <ul>
+        <li><code>src</code>: 이미지 파일 경로</li>
+        <li><code>alt</code>: 이미지가 표시되지 않을 때 나타날 대체 텍스트</li>
+        <li><code>width</code>, <code>height</code>: 이미지 크기 설정</li>
+      </ul>
+    </section>
+
+    <!-- 리스트 -->
+    <section>
+      <h2>리스트</h2>
+      <p>HTML에서는 세 가지 종류의 리스트를 만들 수 있습니다.</p>
+
+      <h3>순서 없는 리스트 (ul, li)</h3>
+      <ul>
+        <li>사과</li>
+        <li>바나나</li>
+        <li>오렌지</li>
+      </ul>
+
+      <h3>순서 있는 리스트 (ol, li)</h3>
+      <ol>
+        <li>첫 번째 항목</li>
+        <li>두 번째 항목</li>
+        <li>세 번째 항목</li>
+      </ol>
+
+      <h3>정의 리스트 (dl, dt, dd)</h3>
+      <dl>
+        <dt>HTML</dt>
+        <dd>웹 페이지의 구조를 정의하는 언어</dd>
+        <dt>CSS</dt>
+        <dd>웹 페이지의 스타일을 정의하는 언어</dd>
+      </dl>
+    </section>
+
+    <!-- 테이블 -->
+    <section>
+      <h2>테이블</h2>
+      <p>테이블은 데이터를 행과 열로 정리해서 보여줄 때 사용합니다:</p>
+
+      <h3>기본 테이블</h3>
+      <table>
+        <tr>
+          <!-- 표의 행(row) -->
+          <th>이름</th>
+          <!-- 헤더 셀 -->
+          <th>나이</th>
+          <th>직업</th>
+        </tr>
+        <tr>
+          <td>홍길동</td>
+          <!-- 일반 셀 -->
+          <td>30</td>
+          <td>개발자</td>
+        </tr>
+        <tr>
+          <td>김철수</td>
+          <td>25</td>
+          <td>디자이너</td>
+        </tr>
+      </table>
+
+      <h3>셀 병합</h3>
+      <table>
+        <tr>
+          <th>시간</th>
+          <th>목요일</th>
+          <th>금요일</th>
+        </tr>
+        <tr>
+          <td>13:00</td>
+          <td>OT</td>
+          <td>CSS기초</td>
+        </tr>
+        <tr>
+          <td>14:00</td>
+          <td rowspan="2">HTML기초</td>
+          <!-- 세로로 2개 셀 병합 -->
+          <td>스타일 우선순위</td>
+        </tr>
+        <tr>
+          <td>15:00</td>
+          <!-- rowspan으로 위 셀과 병합되어 여기는 비어있음 -->
+          <td>CSS 속성</td>
+        </tr>
+      </table>
+
+      <p><strong>주요 태그:</strong></p>
+      <ul>
+        <li><code>&lt;table&gt;</code>: 테이블 전체를 감싸는 태그</li>
+        <li><code>&lt;tr&gt;</code>: 테이블의 행(row)</li>
+        <li><code>&lt;th&gt;</code>: 헤더 셀 (굵게 표시됨)</li>
+        <li><code>&lt;td&gt;</code>: 일반 데이터 셀</li>
+        <li>
+          <code>rowspan</code>: 세로 병합, <code>colspan</code>: 가로 병합
+        </li>
+      </ul>
+    </section>
+
+    <!-- Form 요소 -->
+    <section id="form-section">
+      <h2>Form 요소</h2>
+      <p>
+        폼은 사용자로부터 입력을 받는 인터랙티브한 부분입니다. 사용자가 입력한
+        데이터는 서버로 전송되어 처리됩니다.
+      </p>
+
+      <h3>기본 입력 요소들</h3>
+
+      <form action="#" method="post">
+        <!-- 텍스트 입력 -->
+        <div class="form-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="사용자 이름을 입력하세요"
+          />
+        </div>
+
+        <!-- 비밀번호 입력 -->
+        <div class="form-group">
+          <input type="password" name="password" placeholder="비밀번호" />
+        </div>
+
+        <!-- 라디오 버튼 (하나만 선택 가능) -->
+        <div class="form-group">
+          <input type="radio" name="gender" value="male" id="male" />
+          <label for="male">남성</label>
+
+          <input type="radio" name="gender" value="female" id="female" />
+          <label for="female">여성</label>
+        </div>
+
+        <!-- 체크박스 (여러 개 선택 가능) -->
+        <div class="form-group">
+          <input type="checkbox" name="hobby" value="reading" id="reading" />
+          <label for="reading">독서</label>
+
+          <input type="checkbox" name="hobby" value="sports" id="sports" />
+          <label for="sports">운동</label>
+        </div>
+
+        <!-- 드롭다운 목록 -->
+        <div class="form-group">
+          <label for="food">음식 선택:</label>
+          <select id="food" name="food">
+            <option value="">선택해주세요</option>
+            <option value="pizza">피자</option>
+            <option value="burger">햄버거</option>
+            <option value="pasta">파스타</option>
+          </select>
+        </div>
+
+        <!-- 여러 줄 텍스트 -->
+        <div class="form-group">
+          <textarea
+            name="message"
+            rows="4"
+            cols="50"
+            placeholder="메시지를 입력하세요"
+          ></textarea>
+        </div>
+
+        <!-- 제출 버튼 -->
+        <div class="form-group">
+          <button type="submit">제출</button>
+        </div>
+      </form>
+
+      <h3>주요 속성들</h3>
+      <ul>
+        <li>
+          <strong><code>name</code></strong
+          >: 서버로 데이터를 보낼 때 식별자 역할 (라디오 버튼은 같은 name으로
+          그룹화)
+        </li>
+        <li>
+          <strong><code>value</code></strong
+          >: 서버로 전송될 실제 값
+        </li>
+        <li>
+          <strong><code>placeholder</code></strong
+          >: 입력 필드에 표시되는 안내 텍스트
+        </li>
+        <li>
+          <strong><code>required</code></strong
+          >: 필수 입력 필드로 지정
+        </li>
+        <li>
+          <strong><code>checked</code></strong
+          >: 라디오 버튼이나 체크박스를 기본 선택 상태로 설정
+        </li>
+        <li>
+          <strong><code>selected</code></strong
+          >: 옵션을 기본 선택 상태로 설정
+        </li>
+      </ul>
+
+      <h3>레이블 (label)</h3>
+      <p>레이블은 폼 요소에 설명을 붙이는 역할을 합니다:</p>
+
+      <div class="form-group">
+        <label for="username2">사용자 이름:</label>
+        <input type="text" id="username2" name="username2" />
+      </div>
+
+      <p><strong>레이블의 장점:</strong></p>
+      <ul>
+        <li>접근성 향상 (스크린 리더 사용자에게 도움)</li>
+        <li>레이블을 클릭해도 해당 입력 필드가 선택됨</li>
+        <li>CSS 스타일링에 유용</li>
+      </ul>
+    </section>
+
+    <!-- 시맨틱 태그 -->
+    <section>
+      <h2>시맨틱 태그</h2>
+      <p>
+        시맨틱 태그는 HTML5에서 도입된 중요한 개념으로, 웹 페이지의 내용에
+        <strong>의미</strong>를 부여하는 태그들입니다.
+      </p>
+
+      <h3>시맨틱 태그의 장점</h3>
+      <ol>
+        <li>
+          <strong>검색 엔진 최적화(SEO)</strong>: 검색 엔진이 페이지 내용을 더
+          정확하게 파악
+        </li>
+        <li>
+          <strong>코드 가독성</strong>: 각 부분의 역할이 명확해져 코드 이해가
+          쉬워짐
+        </li>
+        <li>
+          <strong>접근성 향상</strong>: 스크린 리더 등 보조 기술이 페이지 구조를
+          더 잘 이해
+        </li>
+      </ol>
+
+      <h3>주요 시맨틱 태그들</h3>
+      <p>아래는 시맨틱 태그로 구성된 웹페이지 구조 예제입니다:</p>
+
+      <div class="semantic-example">
+        <!-- header: 페이지 상단 영역 (로고, 제목, 메뉴 등) -->
+        <header>
+          <h1>내 웹사이트</h1>
+          <!-- nav: 네비게이션 메뉴 -->
+          <nav>
+            <ul>
+              <li><a href="#home">홈</a></li>
+              <li><a href="#about">소개</a></li>
+              <li><a href="#contact">연락처</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <!-- main: 페이지의 주요 콘텐츠 (페이지당 하나만) -->
+        <main>
+          <!-- section: 문서의 일반적인 섹션 -->
+          <section>
+            <h2>최신 뉴스</h2>
+            <!-- article: 독립적인 콘텐츠 (뉴스 기사, 블로그 포스트 등) -->
+            <article>
+              <h3>기사 제목</h3>
+              <p>기사 내용...</p>
+            </article>
+            <!-- article: 독립적인 콘텐츠 (뉴스 기사, 블로그 포스트 등) -->
+            <article>
+              <h3>또 다른 기사 제목</h3>
+              <p>기사 내용...</p>
+            </article>
+          </section>
+
+          <!-- aside: 사이드바, 관련 링크 등 주요 내용과 간접적으로 연관된 부분 -->
+          <aside>
+            <h3>카테고리</h3>
+            <ul>
+              <li>기술</li>
+              <li>여행</li>
+              <li>음식</li>
+            </ul>
+          </aside>
+        </main>
+
+        <!-- footer: 페이지 하단 영역 (저작권, 연락처 등) -->
+        <footer>
+          <p>&copy; 2024 내 웹사이트. All rights reserved.</p>
+        </footer>
+      </div>
+
+      <h3>각 태그의 역할</h3>
+      <ul>
+        <li>
+          <strong><code>&lt;header&gt;</code></strong
+          >: 페이지나 섹션의 머리말 영역
+        </li>
+        <li>
+          <strong><code>&lt;nav&gt;</code></strong
+          >: 내비게이션 링크들의 집합
+        </li>
+        <li>
+          <strong><code>&lt;main&gt;</code></strong
+          >: 페이지의 주요 콘텐츠 (한 페이지에 하나만 사용)
+        </li>
+        <li>
+          <strong><code>&lt;section&gt;</code></strong
+          >: 문서의 구역을 나누는 태그
+        </li>
+        <li>
+          <strong><code>&lt;article&gt;</code></strong
+          >: 독립적으로 구분되는 콘텐츠
+        </li>
+        <li>
+          <strong><code>&lt;aside&gt;</code></strong
+          >: 주요 내용과 간접적으로 연관된 부분
+        </li>
+        <li>
+          <strong><code>&lt;footer&gt;</code></strong
+          >: 페이지나 섹션의 바닥글 영역
+        </li>
+      </ul>
+    </section>
+
+    <!-- 페이지 하단 -->
+    <hr />
+    <footer
+      style="
+        text-align: center;
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f8f9fa;
+      "
+    >
+      <h3>HTML 기초 학습 완료!</h3>
+      <p>
+        이 페이지는 HTML 기초 강의에서 배운 모든 태그들을 실제로 구현한
+        예제입니다.
+      </p>
+      <p>각 태그의 사용법과 주석을 참고하여 HTML의 기본기를 익혀보세요!</p>
+
+      <p><a href="#top">페이지 맨 위로 이동</a></p>
+    </footer>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
