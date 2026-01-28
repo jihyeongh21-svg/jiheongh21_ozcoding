@@ -1,0 +1,58 @@
+/* 
+<!-- 
+목표 : CSS 문법을 활용해 기존 HTML 코드에 스타일 추가해보기
+주제 : CSS 문법을 활용해 프로필 페이지의 스타일 추가하기
+복습할 개념 체크 리스트
+기본 선택자 [모두 적용 ⇒ * / class ⇒ . / id ⇒ #]
+박스모델
+테두리 스타일 [border]
+여백 다루기 [margin, padding]
+배경 다루기 [background]
+다양한 색상 지정해보기 [color]
+텍스트 꾸미기 [font]
+-->
+*/
+
+/* 전체 정렬 */
+* {
+    text-align: left;
+    box-sizing: border-box;
+}
+
+header {
+    margin: 0;
+    background-color: red;
+    color: blue; 
+    padding: 10px;
+}
+
+#first {
+    margin: 0;
+    border: 5px solid darkblue; 
+    background-color: orange;
+    padding: 20px;
+    display: flex;
+    gap: 70px;
+}
+
+#first ul {
+    font-size: 25px; 
+    list-style: none; 
+}
+
+#second {
+    background-color: yellow;
+    padding: 20px;
+}
+
+/* span 태그에 빨간색 주던 것 */
+.highlight-text {
+    color: red;
+    font-weight: bold;
+}
+
+#third {
+    background-color: green;
+    color: purple;
+    padding: 20px;
+}

@@ -13,17 +13,6 @@
       <p>안녕하세요! 저는 웹 개발에 관심 있는 초보자입니다.</p>
       <button type="button" class="button">이름 바꾸기</button>
     </div>
-
-    <script>
-      const button = document.querySelector(".button");
-      const nameHeading = document.querySelector(".name");
-
-      button.addEventListener("click", () => {
-        const newName = prompt("새 이름을 입력하세요:");
-        if (newName) {
-          nameHeading.innerText = newName;
-        }
-      });
-    </script>
+    <script src="./card.js"></script>
   </body>
 </html>

@@ -1,0 +1,99 @@
+<!-- 
+- 목표 : HTML 문법을 활용해 입력요소 습득하기
+- 주제 : 설문칸에 들어갈 주제 정하고 입력 요소로 더 추가해 보기
+- 복습할 개념 체크 리스트
+    - [ ]  링크 표시하기 [<a href>]
+    - [ ]  목록 만들기 [<ul>, <ol>, <li>]
+    - [ ]  표 만들기 [<tr>, <td>, <th>]
+    - [ ]  입력 태그 [<input>]
+    - [ ]  외 입력 태그들 [<select>, <option>, <textarea>]
+    - [ ]  양식을 만들고 값 전송하기 [<form>]
+    - [ ]  의미론적인 코드 - 시맨틱 태그 [<header>, <main>, <nav> 등]
+    - [ ]  문서 정보 관리하기 - 메타 데이터 [<meta>] 
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0 ">
+        <title>설문조사 페이지</title>
+        <link rel="stylesheet" href="./surbey_style.css">
+    </head>
+    <body>
+        <header>
+        <img id="mcon" src="https://cdn-icons-png.flaticon.com/512/461/461238.png" alt="음악 아이콘" class="music-icon">    
+        <h1>당신의 음악 취향은</h1>
+        <p>모든 항목에 빠짐없이 체크해 주세요</p>    
+        </header>
+        <hr>
+        <main>
+            <form>
+            <fieldset>
+                <legend>개인정보</legend>
+                <label class="user" for="name">이름</label>
+                <input class="user" id="name" placeholder="이름을 입력해주세요">
+
+                <label class="user" for="email">이메일</label>
+                <input class="user" type="email" id="email" placeholder="메일 주소를 입력해 주세요">
+            </fieldset>
+            <fieldset>
+                <legend>설문</legend>
+                <p> 연령대는 ?</p>
+                <input type="radio" value="10" id="teen" name="age">
+                <label for="teen">10데</label>
+                <input type="radio" value="20" id="twenty" name="age">
+                <label for="twenty">20대</label>
+                <input type="radio" value="30" id="thirty"name="age">
+                <label for="thirty">30대</label>
+                <input type="radio" value="40" id="fourty" name="age">
+                <label for="fourty">40대</label>
+                <input type="radio" value="50" id="fifty" name="age">
+                <label for="fifty">50대</label>
+                <input type="radio" value="60" id="sixty" name="age">
+                <label for="sixty">60대이상</label>
+                <br>
+                <br>
+                <label for="sex">성별선택</label>
+                <select name="sex" id="sex">
+                    <option value="">성별을 선택해 주세요</option>
+                    <option value="male">남성</option>
+                    <option value="female">여성</option>
+                </select>
+            </fieldset>
+            <fieldset class=" choiceMusic">
+                <span class="badge">Like</span>
+                <br>
+                <p>당신의 음악 취향은? (복수선택 가능)</p>
+                <input type="checkbox" name="music" value="rock" id="rock">
+                <label for="rock">rock</label>
+                <input type="checkbox" name="music" value="jazz" id="jazz">
+                <label for="jazz">jazz</label>
+                <input type="checkbox" name="music" value="pop" id="pop">
+                <label for="pop">pop</label>
+                <input type="checkbox" name="music" value="dance" id="dance">
+                <label for="dance">dance</label>
+                <input type="checkbox" name="music" value="ballade" id="ballade">
+                <label for="ballade">ballade</label>
+                <input type="checkbox" name="music" value="jpop" id="jpop">
+                <label for="jpop">jpop</label>
+                <input type="checkbox" name="music" value="classic" id="classic">
+                <label for="classic">classic</label>
+                <input type="checkbox" name="music" value="hiphop" id="hiphop">
+                <label for="hiphop">hiphop</label>
+                <input type="checkbox" name="music" value="trot" id="trot">
+                <label for="trot">trot</label>
+            </fieldset>
+            <fieldset>
+                <legend>기타</legend>
+                <p>위에 없는 장르가 있을경우 작성해주세요</p>
+                <textarea name="message" rows="3" cols="50"></textarea>
+            </fieldset>
+            <input type="submit">
+            </form>
+        </main>
+        <hr>
+        <footer>
+            <p>참여 감사합니다.</p>
+        </footer>
+    </body>
+</html>

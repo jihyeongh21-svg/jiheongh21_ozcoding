@@ -1,0 +1,59 @@
+/* 
+- 복습할 개념 체크 리스트
+    - [ ]  요소의 유형 [블록라인 요소와 인라인 요소, display]
+    - [ ]  문서의 흐름 [float]
+    - [ ]  위치 지정하기 [position]
+    - [ ]  겹치거나 넘치는 요소 다루기 [z-index, overflow]
+    - [ ]  선택자 더 알아보기 [ > , ^, $, *]
+    - [ ]  의사요소와 의사클래스 [ : , :: ,nth-child() 등]
+*/
+
+
+
+
+.user{
+    display: block;
+    width: 50%;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+#mcon{
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+}
+header{
+    overflow: hidden;
+}
+.choiceMusic{
+    position: relative;
+}
+.badge{
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    /* 3. 예쁘게 꾸미기 */
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 50%; /* 동그랗게 만들기 */
+}
+
+textarea{
+    height: 60px;
+    overflow-y: auto;
+}
+
+input[type="submit"]:hover {
+    background-color:mediumspringgreen;
+    font-weight: bold; /* 글자 굵게 */
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    background-color: #e8f0fe; 
+    border: 2px solid #007BFF; 
+    outline: none; 
+}

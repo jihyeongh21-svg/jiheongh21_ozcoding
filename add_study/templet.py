@@ -1,111 +1,46 @@
-# # 템플릿 메서드 패턴 - 자판기 문제
+from abc import ABC, abstractmethod
 
-# ## 문제 설명
+class Serve(ABC):
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
 
-# **커피 자판기**, **콜라 자판기**, **라면 자판기**를 템플릿 메서드 패턴으로 설계해 보세요.
+    def run(self, input_money):
+        self.insert_coin(input_money)
+        
+        if input_money >= self.price:
+            self.check_coin()
+            self.make_product() 
+            self.out_product()
+            self.give_change(input_money)
+        else:
+            print(f"[{self.name}] 금액이 부족합니다. 전액 반환합니다.")
 
-# 모든 자판기는 아래와 같은 **공통 흐름**으로 음료/식품을 제공합니다.
+    def insert_coin(self, money):
+        print(f"[{self.name}] 돈 투입: {money}원")
 
-# 1. **돈 투입** - 고객이 금액을 넣는다.
-# 2. **금액 검증** - 투입 금액이 제품 가격 이상인지 확인한다.
-# 3. **제품 준비** - 자판기 종류에 따라 다른 방식으로 제품을 준비한다. *(구체 자판기마다 다름)*
-# 4. **제품 배출** - 준비된 제품을 내보낸다.
-# 5. **거스름돈 반환** - 잔액이 있으면 반환한다.
+    def check_coin(self):
+        print(f"[{self.name}] 금액 검증 완료 (필요: {self.price}원)")
 
-# ---
+    def out_product(self):
+        print(f"[{self.name}] 제품 배출 완료")
 
-# ## 제품별 준비 방식 (추상 메서드로 구현할 부분)
+    def give_change(self, money):
+        change = money - self.price
+        print(f"[{self.name}] 거스름돈 {change}원 반환")
 
-# | 자판기       | 제품 준비 과정 |
-# |-------------|----------------|
-# | **커피 자판기** | 원두 분쇄 → 추출 → 컵에 담기 |
-# | **콜라 자판기** | 캔/병 냉각 확인 → 해당 제품 배출구로 이동 |
-# | **라면 자판기** | 컵면 배출 → 뜨거운 물 주입 → 뚜껑 열기 힌트 출력 |
-
-# ---
-
-# ## 요구사항
-
-# 1. **추상 클래스**  
-#    위 1~5 단계를 담는 **템플릿 메서드**(예: `serve(amount: int)`)를 정의하고,  
-#    "제품 준비"만 **추상 메서드**로 두어 서브클래스가 구현하도록 하세요.
-
-# 2. **구체 클래스**  
-#    - `CoffeeVendingMachine` : 커피 자판기  
-#    - `ColaVendingMachine`  : 콜라 자판기  
-#    - `RamenVendingMachine` : 라면 자판기  
-
-#    각 클래스에서 "제품 준비" 단계만 **자판기 종류에 맞게** 구현하세요.
-
-# 3. **공통으로 처리할 수 있는 단계**  
-#    돈 투입, 금액 검증, 제품 배출, 거스름돈 반환은 **추상 클래스에만** 두고,  
-#    제품 준비 관련 로직만 서브클래스에 두면 됩니다.
-
-# 4. **(선택)**  
-#    훅 메서드를 하나 두어, "라면 자판기만 뚜껑 열기 안내 문구를 출력한다"처럼  
-#    특정 자판기에서만 쓰는 후처리를 넣을 수 있게 해 보세요.
-
-# ---
-
-# ## 예상 출력 예시
-
-# ```
-# [커피 자판기] 돈 투입: 1500원
-# [커피 자판기] 금액 검증 완료 (필요: 1200원)
-# [커피 자판기] 원두 분쇄 중...
-# [커피 자판기] 추출 중...
-# [커피 자판기] 컵에 담는 중...
-# [커피 자판기] 제품 배출 완료
-# [커피 자판기] 거스름돈 300원 반환
-# ```
-
-# ```
-# [콜라 자판기] 돈 투입: 1000원
-# [콜라 자판기] 금액 검증 완료 (필요: 800원)
-# [콜라 자판기] 냉장 상태 확인 중...
-# [콜라 자판기] 배출구로 이동 중...
-# [콜라 자판기] 제품 배출 완료
-# [콜라 자판기] 거스름돈 200원 반환
-# ```
-
-# ```
-# [라면 자판기] 돈 투입: 2000원
-# [라면 자판기] 금액 검증 완료 (필요: 1500원)
-# [라면 자판기] 컵면 배출
-# [라면 자판기] 뜨거운 물 주입 중...
-# [라면 자판기] "3분 후 뚜껑을 열어 드세요" 안내
-# [라면 자판기] 제품 배출 완료
-# [라면 자판기] 거스름돈 500원 반환
-# ```
-
-# ---
-
-# ## 정리
-
-# - **템플릿 메서드**: `serve(amount)` → 전체 흐름(1~5)을 한 번에 정의.
-# - **추상 메서드**: "제품 준비" 단계만 서브클래스에서 구현.
-# - **훅 (선택)**: 라면 자판기용 "뚜껑 열기 안내"처럼, 필요한 서브클래스만 오버라이드하는 메서드.
-
-# 이 구조로 **커피 / 콜라 / 라면 자판기**를 구현해 보세요.
-
-class Serve:
-    def insert_coin():
-    def check_coin():
-    def out_product():
-    def give_change():
-    
     @abstractmethod
-    def pre_product():
-        raise error
-    
+    def pre_product(self):
+        pass
+
 
 class CoffeeVendingMachine(Serve):
-    def pre_product():
+    def __init__(self):
+        super().__init__("커피 자판기", 1200)
 
-class ColaVendingMachine(Serve):
-    def pre_product():
 
-class RamenVendingMachine(Serve):
-    def pre_product():
+    def pre_product(self):
+        print(f"[{self.name}] 원두 분쇄 중...")
+        print(f"[{self.name}] 추출 중...")
+        print(f"[{self.name}] 컵에 담는 중...")
 
-    
