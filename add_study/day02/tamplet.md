@@ -67,7 +67,7 @@ class CaffeineBeverage(ABC):
         self.brew()
         self.pour_in_cup()
         
-        # [후크(Hook) 활용]
+        # 후크(Hook) 활용
         # 조건에 따라 첨가물 추가 여부를 결정
         if self.customer_wants_condiments():
             self.add_condiments()
