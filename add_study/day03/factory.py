@@ -20,3 +20,4 @@ class NYPizzaStore(PizzaStore):
             return CheesePizza('NY Style Cheese Pizza')
         
         pass
+class Pizza()
