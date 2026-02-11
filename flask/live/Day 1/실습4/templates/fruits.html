@@ -1,0 +1,18 @@
+<html>
+  <head><title>Fruits</title></head>
+  <body>
+    <h1>과일 목록</h1>
+
+    <ul>
+      {% for fruit in fruits %}
+      
+        {% if fruit == "딸기" %}
+          <li>🍓 {{ fruit }} 🍓</li>
+        {% else %}
+          <li>{{ fruit }}</li>
+        {% endif %}
+      
+      {% endfor %}
+    </ul>
+  </body>
+</html>
