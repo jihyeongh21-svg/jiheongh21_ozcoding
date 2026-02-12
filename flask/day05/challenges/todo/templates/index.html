@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>JWT Todo App</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .hidden { display: none; }
+        #todo-section { margin-top: 20px; padding-top: 20px; border-top: 2px solid #ccc; }
+        .todo-item { margin-bottom: 10px; padding: 10px; background: #f9f9f9; border: 1px solid #ddd; }
+        .completed { text-decoration: line-through; color: gray; }
+        button { cursor: pointer; margin-left: 5px; }
+        .auth-box { border: 1px solid #ddd; padding: 15px; width: 300px; background: #fafafa; }
+    </style>
+</head>
+<body>
+    <h1>📝 My Todo List</h1>
+
+    <div id="login-section" class="auth-box">
+        <h3>로그인</h3>
+        <input type="text" id="login-username" placeholder="아이디"><br><br>
+        <input type="password" id="login-password" placeholder="비밀번호"><br><br>
+        <button onclick="login()">로그인</button>
+        <button onclick="toggleAuth('register')">회원가입 하러가기</button>
+        <p id="login-msg" style="color: red; font-size: 14px;"></p>
+    </div>
+
+    <div id="register-section" class="auth-box hidden">
+        <h3>새 유저 추가 (회원가입)</h3>
+        <input type="text" id="reg-username" placeholder="새 아이디"><br><br>
+        <input type="password" id="reg-password" placeholder="새 비밀번호"><br><br>
+        <button onclick="registerUser()">가입하기</button>
+        <button onclick="toggleAuth('login')">돌아가기</button>
+        <p id="reg-msg" style="color: red; font-size: 14px;"></p>
+    </div>
+
+
+    <div id="todo-section" class="hidden">
+        <h3>나의 할 일</h3>
+        
+        <div>
+            <input type="text" id="new-todo-title" placeholder="새로운 할 일 입력">
+            <button onclick="createTodo()">추가</button>
+            <button onclick="logout()" style="float: right; background: #ff4d4d; color: white; border: none; padding: 5px 10px;">로그아웃</button>
+        </div>
+        <br>
+        <div id="todo-list"></div>
+    </div>
+
+    <script>
+        let authToken = "";
+
+        // 백엔드 API 주소 (이전에 작성하신 백엔드 라우트 기준)
+        const LOGIN_API_URL = "/login/";
+        const REGISTER_API_URL = "/login/register"; // 회원가입 주소
+        const TODO_API_URL = "/todo/";
+
+        // -----------------------------------------
+        // UI 전환 함수 (로그인창 <-> 회원가입창)
+        // -----------------------------------------
+        function toggleAuth(type) {
+            document.getElementById("login-msg").innerText = "";
+            document.getElementById("reg-msg").innerText = "";
+
+            if (type === 'register') {
+                document.getElementById("login-section").classList.add("hidden");
+                document.getElementById("register-section").classList.remove("hidden");
+            } else {
+                document.getElementById("register-section").classList.add("hidden");
+                document.getElementById("login-section").classList.remove("hidden");
+            }
+        }
+
+        // -----------------------------------------
+        // 회원가입 (POST /login/register)
+        // -----------------------------------------
+        async function registerUser() {
+            const usernameVal = document.getElementById("reg-username").value;
+            const passwordVal = document.getElementById("reg-password").value;
+
+            if (!usernameVal || !passwordVal) {
+                return alert("아이디와 비밀번호를 모두 입력하세요.");
+            }
+
+            const response = await fetch(REGISTER_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: usernameVal, password: passwordVal })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("회원가입이 완료되었습니다! 로그인해주세요.");
+                document.getElementById("reg-username").value = "";
+                document.getElementById("reg-password").value = "";
+                toggleAuth('login'); // 다시 로그인 창으로 이동
+            } else {
+                document.getElementById("reg-msg").innerText = data.msg || "회원가입 실패";
+            }
+        }
+
+        // -----------------------------------------
+        // 로그인 (POST /login/)
+        // -----------------------------------------
+        async function login() {
+            const usernameVal = document.getElementById("login-username").value;
+            const passwordVal = document.getElementById("login-password").value;
+
+            const response = await fetch(LOGIN_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: usernameVal, password: passwordVal })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                authToken = data.access_token;
+                document.getElementById("login-section").classList.add("hidden");
+                document.getElementById("todo-section").classList.remove("hidden");
+                loadTodos(); // 로그인 성공 시 할 일 목록 불러오기
+            } else {
+                document.getElementById("login-msg").innerText = data.msg || "로그인 실패";
+            }
+        }
+
+        // -----------------------------------------
+        // 로그아웃
+        // -----------------------------------------
+        function logout() {
+            authToken = ""; 
+            document.getElementById("login-section").classList.remove("hidden");
+            document.getElementById("todo-section").classList.add("hidden");
+            document.getElementById("login-username").value = "";
+            document.getElementById("login-password").value = "";
+            document.getElementById("todo-list").innerHTML = ""; // 화면 초기화
+        }
+
+        // ==========================================
+        // 아래부터는 기존과 동일한 Todo 관련 함수들
+        // ==========================================
+        
+        // -----------------------------------------
+        // Todo 목록 불러오기 (수정됨)
+        // -----------------------------------------
+        async function loadTodos() {
+            const response = await fetch(TODO_API_URL, {
+                method: "GET",
+                headers: { "Authorization": "Bearer " + authToken }
+            });
+
+            // 👉 [수정 핵심] 진짜로 토큰에 문제가 있는 401(Unauthorized) 에러일 때만 쫓아냅니다.
+            if (response.status === 401) {
+                alert("로그인이 만료되었거나 잘못되었습니다. 다시 로그인해주세요.");
+                logout();
+                return;
+            }
+
+            if (!response.ok) {
+                console.log("목록을 불러오는데 실패했습니다.");
+                return;
+            }
+
+            const todos = await response.json();
+            const listDiv = document.getElementById("todo-list");
+            listDiv.innerHTML = "";
+
+            // 👉 [새로운 기능] 할 일이 0개면 예쁜 안내 문구를 보여줍니다.
+            if (todos.length === 0) {
+                listDiv.innerHTML = "<p style='color: #888; font-size: 14px;'>🎉 아직 등록된 할 일이 없습니다! 새로운 할 일을 추가해 보세요.</p>";
+                return;
+            }
+
+            todos.forEach(todo => {
+                const todoDiv = document.createElement("div");
+                todoDiv.className = "todo-item";
+                const titleClass = todo.completed ? "completed" : "";
+                
+                todoDiv.innerHTML = `
+                    <span class="${titleClass}"><strong>${todo.title}</strong></span>
+                    <div style="margin-top: 5px;">
+                        <button onclick="toggleTodo(${todo.id}, ${!todo.completed})">
+                            ${todo.completed ? "취소" : "완료"}
+                        </button>
+                        <button onclick="deleteTodo(${todo.id})" style="color: red;">삭제</button>
+                    </div>
+                `;
+                listDiv.appendChild(todoDiv);
+            });
+        }
+
+        async function createTodo() {
+            const titleVal = document.getElementById("new-todo-title").value;
+            if (!titleVal) return alert("할 일을 입력하세요!");
+
+            await fetch(TODO_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + authToken 
+                },
+                body: JSON.stringify({ title: titleVal })
+            });
+            document.getElementById("new-todo-title").value = ""; 
+            loadTodos(); 
+        }
+
+        async function toggleTodo(todoId, isCompleted) {
+            await fetch(TODO_API_URL + todoId, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + authToken 
+                },
+                body: JSON.stringify({ completed: isCompleted })
+            });
+            loadTodos(); 
+        }
+
+        async function deleteTodo(todoId) {
+            if (!confirm("정말 삭제하시겠습니까?")) return;
+            await fetch(TODO_API_URL + todoId, {
+                method: "DELETE",
+                headers: { "Authorization": "Bearer " + authToken }
+            });
+            loadTodos(); 
+        }
+    </script>
+</body>
+</html>
