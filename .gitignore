@@ -1,2 +1,4 @@
 .gemini/
 .venv/
+.idea/
+__pycache__/
