@@ -128,5 +128,5 @@ STATIC_URL = 'static/'
 
 LOGIN_REDIRECT_URL = '/todo/'
 LOGIN_URL = '/accounts/login/'
-LOGOUT_REDIRECT_URL = '/todo/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 

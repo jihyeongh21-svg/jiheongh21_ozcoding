@@ -21,6 +21,6 @@ def login(request):
     form = AuthenticationForm(request.POST or None)
     if form.is_valid():
         django_login(request,form.get_user())
-        return redirect(reverse('todo_list'))
+        return redirect(settings.LOGIN_REDIRECT_URL)
     context = {'form': form}
     return render(request,'registration/login.html',context )
