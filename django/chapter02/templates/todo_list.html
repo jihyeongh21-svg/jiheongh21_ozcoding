@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
+    <nav>
+        <div style="text-align: right">
+            {% if request.user.is_authenticated %}
+                <div style="text-align: left">
+                    <h3>{{ request.user.username }} 님</h3>
+                </div>
+                <form action="{% url 'logout' %}" method="post" style="display: inline">
+                    {% csrf_token %}
+                        <button>
+                            로그아웃
+                        </button>
+                </form>
+                {% else %}
+                    <a href="{%  url 'signup' %}">회원가입</a>
+                    <a href="{% url 'login' %}">로그인</a>
+            {% endif %}
+        </div>
+    </nav>
   <h1> 할 일 목록</h1>
   {% for todo in todo_list %}
     <p>
