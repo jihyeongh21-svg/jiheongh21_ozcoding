@@ -1,5 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
+User = get_user_model()
 # Create your models here.
 
 """
@@ -23,6 +25,7 @@ class Blog(models.Model):
     # 작성자 추후 추가
     title = models.CharField('제목',max_length=100)
     content = models.TextField('본문')
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     created = models.DateTimeField('생성일자',auto_now_add=True)
     updated = models.DateTimeField('수정일자',auto_now=True)
 
