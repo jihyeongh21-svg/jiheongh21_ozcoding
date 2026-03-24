@@ -11,5 +11,22 @@
   <p> 시작 : {{ todo.start_date}}</p>
   <p> 종료 : {{ todo.end_date}}</p>
   <p> 완료 여부 : {{ todd.is_completed}}</p>
+    {% if todo.user == request.user %}
+            <div>
+        <form action="{% url 'todo_update' todo.pk %}" style="display: inline">
+            <button>
+                수정
+            </button>
+        </form>
+                <form action="{% url 'todo_delete' todo.pk%}" style="display: inline">
+            <button>
+                삭제
+            </button>
+        </form>
+
+    </div>
+
+    {% endif %}
+
 </body>
 </html>

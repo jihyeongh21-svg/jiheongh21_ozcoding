@@ -1,34 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <nav>
-        <div style="text-align: right">
-            {% if request.user.is_authenticated %}
-                <div style="text-align: left">
-                    <h3>{{ request.user.username }} 님</h3>
-                </div>
-                <form action="{% url 'logout' %}" method="post" style="display: inline">
-                    {% csrf_token %}
-                        <button>
-                            로그아웃
-                        </button>
-                </form>
-                {% else %}
-                    <a href="{%  url 'signup' %}">회원가입</a>
-                    <a href="{% url 'login' %}">로그인</a>
-            {% endif %}
-        </div>
-    </nav>
+{% extends 'base.html'%}
+{% block content %}
   <h1> 할 일 목록</h1>
-  {% for todo in todo_list %}
+    <div>
+        <form action="{% url 'todo_create'%}">
+            <button>
+                생성
+            </button>
+        </form>
+        <form method="get">
+            <input type="text" placeholder="제목 또는 내용 입력" name="q" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+            <button>검색</button>
+
+        </form>
+    </div>
+  {% for todo in page_obj.object_list %}
     <p>
-      <a href="/todo/{{todo.id}}">
+      <a href="{% url 'todo_info' todo.id %}">
         {{ todo.title }}</a>
     </p>
   {% endfor %}
-</body>
-</html>
+    <div>
+    {% if page_obj.has_previous %}
+        <a href="?page=1"> 처음으로</a>
+        <a href="?page{{ page_obj.previous_page_number }}">이전</a>
+    {% else %}
+        <p>&laquo; 처음으로</p>
+        <p>이전</p>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+        {% if i > page_obj.number|add:-3 and i < page_obj.number|add:3 %}
+            {% if i == page_obj.number %}
+                <span style="color: blue">{{ i }}</span>
+
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endif %}
+    {%  endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">마지막</a>
+        {% else %}
+        <p>다음</p>
+        <p>마지막</p>
+    {% endif %}
+    </div>
+{% endblock %}

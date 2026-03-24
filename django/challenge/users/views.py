@@ -2,11 +2,10 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login
-from django.urls import reverse
 
 # Create your views here.
 
-def sing_up(request):
+def sign_up(request):
 
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
@@ -17,8 +16,7 @@ def sing_up(request):
     return render(request,'registration/sign_up.html',context )
 
 def login(request):
-
-    form = AuthenticationForm(request.POST or None)
+    form = AuthenticationForm(request,request.POST or None)
     if form.is_valid():
         django_login(request,form.get_user())
         return redirect(settings.LOGIN_REDIRECT_URL)
