@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <h1> 할일 {{ todo.title }}</h1>
+{% extends 'base.html' %}
+{% block content %}
+	 <h1> 할일 {{ object.title }}</h1>
   <hr>
-  <p> 할일 내용 : {{todo.description}}</p>
-  <p> 시작 : {{ todo.start_date}}</p>
-  <p> 종료 : {{ todo.end_date}}</p>
-  <p> 완료 여부 : {{ todd.is_completed}}</p>
-    {% if todo.user == request.user %}
+  <p> 할일 내용 : {{object.description}}</p>
+  <p> 시작 : {{ object.start_date}}</p>
+  <p> 종료 : {{ object.end_date}}</p>
+  <p> 완료 여부 : {{ object.is_completed}}</p>
+    {% if object.user == request.user or request.user.is_superuser %}
             <div>
-        <form action="{% url 'todo_update' todo.pk %}" style="display: inline">
+        <form action="{% url 'todo:update' object.pk %}" style="display: inline">
             <button>
                 수정
             </button>
         </form>
-                <form action="{% url 'todo_delete' todo.pk%}" style="display: inline">
-            <button>
+        <form id="delete_form"  action="{% url 'todo:delete' object.pk %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <button id="delete_btn" type="button">
                 삭제
             </button>
         </form>
@@ -27,6 +23,13 @@
     </div>
 
     {% endif %}
-
-</body>
-</html>
+{% endblock %}
+{% block js %}
+	<script>
+        document.querySelector('#delete_btn').addEventListener('click',function () {
+                if(confirm('삭제 하겠습니까?')){
+                    document.querySelector('#delete_form').submit();
+                }
+            })
+    </script>
+{% endblock %}

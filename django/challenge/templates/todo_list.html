@@ -2,7 +2,7 @@
 {% block content %}
   <h1> 할 일 목록</h1>
     <div>
-        <form action="{% url 'todo_create'%}">
+        <form action="{% url 'todo:create'%}">
             <button>
                 생성
             </button>
@@ -13,9 +13,9 @@
 
         </form>
     </div>
-  {% for todo in page_obj.object_list %}
+  {% for todo in object_list %}
     <p>
-      <a href="{% url 'todo_info' todo.id %}">
+      <a href="{% url 'todo:info' todo.id %}">
         {{ todo.title }}</a>
     </p>
   {% endfor %}

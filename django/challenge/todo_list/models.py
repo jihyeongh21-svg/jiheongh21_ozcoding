@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse_lazy
 
 # Create your models here.
 User = get_user_model()
@@ -17,6 +18,10 @@ class TodoList(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse_lazy('todo:info',kwargs={'pk':self.pk})
+
     class Meta:
         db_table = 'todo_list'
         verbose_name = '해야할 일'
