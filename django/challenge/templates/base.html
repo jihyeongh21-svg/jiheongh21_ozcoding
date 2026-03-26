@@ -9,7 +9,9 @@
             <div style="text-align: right">
                     <div style="text-align: left">
                         <h3>{{ request.user.username }} 님</h3>
+                          <a href="{% url 'todo:list' %}">홈</a>
                     </div>
+
                     <form action="{% url 'logout' %}" method="post" style="display: inline">
                         {% csrf_token %}
                             <button>
@@ -19,6 +21,9 @@
             </div>
         </nav>
     {% block content %}
+    {% endblock %}
+    {% block js %}
+
     {% endblock %}
 </body>
 </html>
