@@ -1,45 +1,48 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from blog.forms import BlogForm, CommentForm
+from blog.forms import CommentForm
 from blog.models import Blog, Comment
 
 
 class BlogListView(ListView):
     model = Blog
-    template_name = 'blog_list.html'
+    template_name = "blog_list.html"
     paginate_by = 10
-    ordering = '-created'
+    ordering = "-created"
+
     # queryset = Blog.objects.all().order_by('-created')
     def get_queryset(self):
         queryset = super(BlogListView, self).get_queryset()
-        q= self.request.GET.get('q')
+        q = self.request.GET.get("q")
         if q:
-            queryset = queryset.filter(Q(title__icontains=q) |Q(content__icontains=q))
+            queryset = queryset.filter(Q(title__icontains=q) | Q(content__icontains=q))
         return queryset
+
 
 class BlogDetailView(ListView):
     model = Comment
     # queryset = Blog.objects.all().prefetch_related('comment_set','comment_set__author')
-    template_name = 'blog_detail.html'
+    template_name = "blog_detail.html"
+    paginate_by = 10
 
-    def get(self,request,*args,**kwargs):
-        self.object = get_object_or_404(Blog,pk=kwargs.get('blog_pk'))
-        return super().get(request,*args,**kwargs)
+    def get(self, request, *args, **kwargs):
+        self.object = get_object_or_404(Blog, pk=kwargs.get("blog_pk"))
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.model.objects.filter(blog=self.object).prefetch_related('author')
+        return self.model.objects.filter(blog=self.object).prefetch_related("author")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comment_form'] = CommentForm()
-        context['blog'] = self.object
+        context["comment_form"] = CommentForm()
+        context["blog"] = self.object
         return context
+
     # def post(self,*args,**kwargs):
     #     comment_form = CommentForm(self.request.POST)
     #     if not comment_form.is_valid():
@@ -58,24 +61,27 @@ class BlogDetailView(ListView):
     #
     #     return HttpResponseRedirect(reverse_lazy('blog:detail',kwargs={'pk':self.kwargs['pk']}))
 
-class BlogCreateView(LoginRequiredMixin,CreateView):
+
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    template_name = 'blog_form.html'
-    fields=['category','title','content']
+    template_name = "blog_form.html"
+    fields = ["category", "title", "content"]
     # success_url = reverse_lazy('cb_detail')
 
-    def form_valid(self,form):
-        self.object= form.save(commit=False)
-        self.object.author= self.request.user
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-    def get_success_url(self):
-        return reverse_lazy('blog:detail',kwargs={'pk':self.object.pk})
 
-class BlogUpdateView(LoginRequiredMixin,UpdateView):
+    def get_success_url(self):
+        return reverse_lazy("blog:detail", kwargs={"pk": self.object.pk})
+
+
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
-    template_name = 'blog_form.html'
-    fields=['category','title','content']
+    template_name = "blog_form.html"
+    fields = ["category", "title", "content"]
     #
     # # 다른 방법 모델에 정의한 get_absolute_url 사용
     # def get_queryset(self):
@@ -83,7 +89,7 @@ class BlogUpdateView(LoginRequiredMixin,UpdateView):
     #     return queryset.filter(author=self.request.user)
 
     def get_object(self, queryset=None):
-        self.object= super().get_object(queryset)
+        self.object = super().get_object(queryset)
         if self.request.user.is_superuser:
             return self.object
 
@@ -92,35 +98,37 @@ class BlogUpdateView(LoginRequiredMixin,UpdateView):
         else:
             return self.object
 
-class BlogDeleteView(LoginRequiredMixin,DeleteView):
+
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
 
     def get_queryset(self):
         queryset = super().get_queryset()
         if not self.request.user.is_superuser:
-            queryset= queryset.filter(author=self.request.user)
+            queryset = queryset.filter(author=self.request.user)
         return queryset
 
     def get_success_url(self):
-        return reverse_lazy('blog:list')
+        return reverse_lazy("blog:list")
 
-class CommentCreateView(LoginRequiredMixin,CreateView):
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
 
-    def get(self,*args,**kwargs):
+    def get(self, *args, **kwargs):
         raise Http404
 
-    def form_valid(self,form):
-        blog=self.get_blog()
-        self.object= form.save(commit=False)
-        self.object.author= self.request.user
+    def form_valid(self, form):
+        blog = self.get_blog()
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
         self.object.blog = self.get_blog()
         self.object.save()
-        return HttpResponseRedirect(reverse_lazy('blog:detail',kwargs={'pk':blog.pk}))
+        return HttpResponseRedirect(reverse_lazy("blog:detail", kwargs={"pk": blog.pk}))
 
     def get_blog(self):
-        pk = self.kwargs['pk']
+        pk = self.kwargs["pk"]
         blog = get_object_or_404(Blog, pk=pk)
 
         return blog

@@ -8,7 +8,7 @@ User = get_user_model()
 # Create your models here.
 
 """
-블로그 모델 
+블로그 모델
 1. 제목
 2. 본문
 3. 작성자
@@ -16,19 +16,23 @@ User = get_user_model()
 5. 수정일자
 6. 카테고리
 """
+
+
 class Blog(TimeStampedModel):
     CATEGORY_CHOICES = (
-        ('free','자유'),
-        ('travel','여행'),
-        ('study','공부'),
-        ('food','음식')
+        ("free", "자유"),
+        ("travel", "여행"),
+        ("study", "공부"),
+        ("food", "음식"),
     )
 
-    category = models.CharField('카테고리',max_length = 20,choices = CATEGORY_CHOICES,default = 'free')
+    category = models.CharField(
+        "카테고리", max_length=20, choices=CATEGORY_CHOICES, default="free"
+    )
     # 작성자 추후 추가
-    title = models.CharField('제목',max_length=100)
-    content = models.TextField('본문')
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    title = models.CharField("제목", max_length=100)
+    content = models.TextField("본문")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     # created = models.DateTimeField('생성일자',auto_now_add=True)
     # updated = models.DateTimeField('수정일자',auto_now=True)
 
@@ -36,26 +40,27 @@ class Blog(TimeStampedModel):
         return f"[{self.get_category_display()}] {self.title}"
 
     def get_absolute_url(self):
-        return reverse('blog:detail',kwargs={'pk':self.pk})
+        return reverse("blog:detail", kwargs={"blog_pk": self.pk})
 
     class Meta:
-        verbose_name = '블로그'
-        verbose_name_plural = '블로그 목록'
+        verbose_name = "블로그"
+        verbose_name_plural = "블로그 목록"
 
 
 # 작성일자
 # 수정일자
 # 작성자
 
+
 class Comment(TimeStampedModel):
-    blog= models.ForeignKey(Blog,on_delete=models.CASCADE)
-    content = models.CharField('본문',max_length=255)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    content = models.CharField("본문", max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.blog.title} 댓글"
 
     class Meta:
-        verbose_name = '댓글'
-        verbose_name_plural='댓글제목'
-        ordering = ['created','-id']
+        verbose_name = "댓글"
+        verbose_name_plural = "댓글제목"
+        ordering = ["created", "-id"]

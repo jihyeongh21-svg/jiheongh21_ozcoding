@@ -34,9 +34,9 @@
     </form>
   {% endif %}
 
-    <div>
+    <div class="mb-2" id="comment_wrapper">
         {% for comment in blog.comment_set.all %}
-            <div>
+            <div class="border-bottom">
                 {{ comment.content }}
                 <p class="text-end">
                     <small>{{ comment.created | date:'Y-m-d H:i' }} | {{ comment.author.username }} </small>
@@ -46,6 +46,7 @@
         {% endfor %}
 
     </div>
+    {% include 'pagination.html' %}
   <hr>
   <a class="btn btn-sm btn-info" href="{% url 'blog:list' %}">목록</a>
 {% endblock %}
