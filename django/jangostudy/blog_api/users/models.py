@@ -3,7 +3,7 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    # bio = models.TextField(blank=True, null=True)  # 추가 필드 예시
+    bio = models.TextField(blank=True, null=True)  # noqa  # 추가 필드 예시
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
